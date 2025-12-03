@@ -1,0 +1,357 @@
+/* ========================================
+   ESTILOS GENERALES Y VARIABLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colores principales */
+    --gold: #d4af37;
+    --dark-gold: #b8941f;
+    --red: #8B0000;
+    --light-red: #c41e3a;
+    --black: #0a0a0a;
+    --white: #ffffff;
+    
+    /* Espaciado */
+    --spacing-small: 10px;
+    --spacing-medium: 20px;
+    --spacing-large: 50px;
+    
+    /* Bordes */
+    --border-radius: 15px;
+    
+    /* Transiciones */
+    --transition-fast: 0.3s ease;
+    --transition-slow: 0.8s ease;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(135deg, var(--black) 0%, #1a0000 50%, var(--black) 100%);
+    color: var(--white);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ========================================
+   DECORACIONES DE FONDO
+   ======================================== */
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold);
+    animation: float linear infinite;
+    opacity: 0;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Posiciones y duraciones de partículas */
+.particle:nth-child(1) { left: 5%; animation-duration: 15s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 15%; animation-duration: 18s; animation-delay: 2s; }
+.particle:nth-child(3) { left: 25%; animation-duration: 12s; animation-delay: 4s; }
+.particle:nth-child(4) { left: 35%; animation-duration: 20s; animation-delay: 1s; }
+.particle:nth-child(5) { left: 45%; animation-duration: 16s; animation-delay: 3s; }
+.particle:nth-child(6) { left: 55%; animation-duration: 14s; animation-delay: 5s; }
+.particle:nth-child(7) { left: 65%; animation-duration: 19s; animation-delay: 2s; }
+.particle:nth-child(8) { left: 75%; animation-duration: 13s; animation-delay: 4s; }
+.particle:nth-child(9) { left: 85%; animation-duration: 17s; animation-delay: 1s; }
+.particle:nth-child(10) { left: 95%; animation-duration: 15s; animation-delay: 3s; }
+.particle:nth-child(11) { left: 10%; animation-duration: 16s; animation-delay: 6s; }
+.particle:nth-child(12) { left: 20%; animation-duration: 14s; animation-delay: 5s; }
+.particle:nth-child(13) { left: 30%; animation-duration: 18s; animation-delay: 7s; }
+.particle:nth-child(14) { left: 40%; animation-duration: 12s; animation-delay: 2s; }
+.particle:nth-child(15) { left: 50%; animation-duration: 20s; animation-delay: 4s; }
+.particle:nth-child(16) { left: 60%; animation-duration: 15s; animation-delay: 1s; }
+.particle:nth-child(17) { left: 70%; animation-duration: 17s; animation-delay: 6s; }
+.particle:nth-child(18) { left: 80%; animation-duration: 13s; animation-delay: 3s; }
+.particle:nth-child(19) { left: 90%; animation-duration: 19s; animation-delay: 5s; }
+.particle:nth-child(20) { left: 12%; animation-duration: 16s; animation-delay: 7s; }
+.particle:nth-child(21) { left: 22%; animation-duration: 14s; animation-delay: 2s; }
+.particle:nth-child(22) { left: 32%; animation-duration: 18s; animation-delay: 4s; }
+.particle:nth-child(23) { left: 42%; animation-duration: 12s; animation-delay: 6s; }
+.particle:nth-child(24) { left: 52%; animation-duration: 20s; animation-delay: 1s; }
+.particle:nth-child(25) { left: 62%; animation-duration: 15s; animation-delay: 3s; }
+.particle:nth-child(26) { left: 72%; animation-duration: 17s; animation-delay: 5s; }
+.particle:nth-child(27) { left: 82%; animation-duration: 13s; animation-delay: 7s; }
+.particle:nth-child(28) { left: 92%; animation-duration: 19s; animation-delay: 2s; }
+.particle:nth-child(29) { left: 8%; animation-duration: 16s; animation-delay: 4s; }
+.particle:nth-child(30) { left: 18%; animation-duration: 14s; animation-delay: 6s; }
+
+/* ========================================
+   DECORACIONES DE ESQUINAS
+   ======================================== */
+
+.corner-decoration {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--gold);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.corner-decoration.top-left {
+    top: 20px;
+    left: 20px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-decoration.top-right {
+    top: 20px;
+    right: 20px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-decoration.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner-decoration.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-left: none;
+    border-top: none;
+}
+
+/* ========================================
+   SECCIÓN DE INTRO
+   ======================================== */
+
+.intro-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+}
+
+.intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--gold), var(--light-red), var(--gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.intro-subtitle {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    color: var(--gold);
+    font-weight: 300;
+    letter-spacing: 8px;
+    margin-bottom: 30px;
+    animation: fadeInUp 2s ease-out;
+}
+
+.intro-date {
+    font-size: clamp(1rem, 3vw, 1.8rem);
+    color: var(--white);
+    opacity: 0.8;
+    margin-bottom: 50px;
+    animation: fadeInUp 2.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   SECCIÓN FINAL
+   ======================================== */
+
+.final-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--gold), var(--light-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 30px;
+}
+
+.final-message {
+    max-width: 800px;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    line-height: 1.8;
+    color: var(--white);
+    margin-bottom: 50px;
+    opacity: 0.9;
+}
+
+.final-heart {
+    font-size: 5rem;
+    color: var(--light-red);
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+/* ========================================
+   SECCIÓN DE DESEOS
+   ======================================== */
+
+.wishes-section {
+    min-height: 100vh;
+    padding: 100px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.wishes-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    text-align: center;
+    background: linear-gradient(45deg, var(--gold), var(--light-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 80px;
+}
+
+.wishes-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.wish-item {
+    background: rgba(20, 0, 0, 0.8);
+    border-left: 5px solid var(--gold);
+    border-radius: 15px;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    transition: all var(--transition-fast);
+    opacity: 0;
+    transform: translateX(-50px);
+}
+
+.wish-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.wish-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    border-color: var(--light-red);
+}
+
+.wish-icon {
+    font-size: 2rem;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.wish-text {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: var(--white);
+    display: inline;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .corner-decoration {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .wish-item {
+        padding: 20px 25px;
+    }
+    
+    .wish-text {
+        font-size: 1.2rem;
+    }
+}

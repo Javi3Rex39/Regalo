@@ -1,0 +1,178 @@
+/* ========================================
+   ESTILOS DE LA GALERÍA
+   ======================================== */
+
+.galeria-section {
+    min-height: 100vh;
+    padding: 100px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.galeria-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    text-align: center;
+    background: linear-gradient(45deg, var(--gold), var(--light-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+.galeria-subtitle {
+    text-align: center;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--white);
+    opacity: 0.8;
+    margin-bottom: 60px;
+    font-style: italic;
+}
+
+/* ========================================
+   GRID DE LA GALERÍA
+   ======================================== */
+
+.galeria-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+/* ========================================
+   ITEMS DE LA GALERÍA
+   ======================================== */
+
+.galeria-item {
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--gold);
+}
+
+.galeria-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.5);
+    border-color: var(--light-red);
+}
+
+.galeria-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: all 0.4s ease;
+}
+
+.galeria-item:hover .galeria-imagen {
+    transform: scale(1.1);
+}
+
+/* ========================================
+   OVERLAY CON TEXTO
+   ======================================== */
+
+.galeria-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 30px;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.galeria-item:hover .galeria-overlay {
+    opacity: 1;
+}
+
+.galeria-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.galeria-item:hover .galeria-text {
+    transform: translateY(0);
+}
+
+/* ========================================
+   EFECTO ESPECIAL DE BRILLO
+   ======================================== */
+
+.galeria-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+    z-index: 1;
+}
+
+.galeria-item:hover::before {
+    opacity: 1;
+    left: 100%;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .galeria-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 10px;
+    }
+    
+    .galeria-item {
+        aspect-ratio: 3/4;
+    }
+    
+    .galeria-text {
+        font-size: 1.3rem;
+    }
+    
+    .galeria-overlay {
+        opacity: 0.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .galeria-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .galeria-item {
+        aspect-ratio: 3/4;
+    }
+}

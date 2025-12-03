@@ -1,0 +1,184 @@
+/* ========================================
+   ESTILOS DEL COUNTDOWN Y BLOQUEO
+   ======================================== */
+
+.lock-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--black) 0%, #1a0000 50%, var(--black) 100%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+.lock-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.lock-message {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--gold);
+    text-align: center;
+    margin-top: 30px;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* ========================================
+   COUNTDOWN
+   ======================================== */
+
+.countdown-container {
+    margin: 50px 0;
+    animation: fadeInUp 2.5s ease-out;
+}
+
+.countdown-label {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    color: var(--light-red);
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.countdown {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    background: rgba(139, 0, 0, 0.3);
+    border: 2px solid var(--gold);
+    border-radius: 15px;
+    padding: 20px 30px;
+    min-width: 120px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+.countdown-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.countdown-text {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    color: var(--white);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ========================================
+   MENSAJE DE CUMPLEAÑOS
+   ======================================== */
+
+.birthday-message {
+    display: none;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    animation: pulse-birthday 1.5s infinite, fadeInUp 1s ease-out;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+    text-align: center;
+}
+
+.birthday-message.active {
+    display: block;
+}
+
+@keyframes pulse-birthday {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ========================================
+   BOTÓN DE DESBLOQUEO
+   ======================================== */
+
+.unlock-button {
+    margin-top: 50px;
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(45deg, var(--gold), var(--light-red));
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease;
+    display: none;
+    animation: pulse-button 2s infinite;
+}
+
+.unlock-button.show {
+    display: block;
+}
+
+.unlock-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+}
+
+.unlock-button:active {
+    transform: scale(0.95);
+}
+
+@keyframes pulse-button {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .countdown {
+        gap: 15px;
+    }
+
+    .countdown-item {
+        min-width: 80px;
+        padding: 15px 20px;
+    }
+    
+    .unlock-button {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+    }
+    
+    .lock-message {
+        font-size: 1.2rem;
+        padding: 0 20px;
+    }
+}

@@ -1,0 +1,213 @@
+/* ========================================
+   ESTILOS DEL TIMELINE
+   ======================================== */
+
+.timeline-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px;
+    z-index: 10;
+}
+
+/* ========================================
+   LÍNEA VERTICAL CENTRAL
+   ======================================== */
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, 
+        transparent 0%,
+        var(--gold) 10%,
+        var(--gold) 90%,
+        transparent 100%
+    );
+    transform: translateX(-50%);
+}
+
+/* ========================================
+   ITEMS DEL TIMELINE
+   ======================================== */
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 150px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: 0;
+    margin-right: calc(50% + 60px);
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: calc(50% + 60px);
+    margin-right: 0;
+    text-align: left;
+}
+
+/* ========================================
+   PUNTO EN LA LÍNEA
+   ======================================== */
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: var(--gold);
+    border: 5px solid var(--black);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212, 175, 55, 0.5);
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212, 175, 55, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--gold), 0 0 60px rgba(212, 175, 55, 0.8);
+    }
+}
+
+/* ========================================
+   CONTENIDO DEL TIMELINE
+   ======================================== */
+
+.timeline-content {
+    background: rgba(20, 0, 0, 0.8);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
+    border-color: var(--light-red);
+}
+
+.timeline-age {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--light-red);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.timeline-description {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* ========================================
+   CONTENEDOR DE IMÁGENES
+   ======================================== */
+
+.timeline-image-container {
+    width: 100%;
+    max-width: 500px;
+    min-height: 400px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.timeline-image {
+    max-width: 100%;
+    max-height: 600px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.timeline-image-container:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+}
+
+.timeline-image-container:hover .timeline-image {
+    transform: scale(1.05);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 30px;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 80px;
+        margin-right: 0;
+        text-align: left;
+    }
+
+    .timeline-dot {
+        left: 30px;
+    }
+
+    .timeline-image-container {
+        max-width: 100%;
+        min-height: 300px;
+    }
+
+    .timeline-image {
+        max-height: 500px;
+    }
+
+    .timeline-age {
+        font-size: 3rem;
+    }
+
+    .timeline-title {
+        font-size: 1.5rem;
+    }
+
+    .timeline-description {
+        font-size: 1.1rem;
+    }
+}

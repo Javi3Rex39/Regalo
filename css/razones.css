@@ -1,0 +1,173 @@
+/* ========================================
+   ESTILOS DE LAS 15 RAZONES
+   ======================================== */
+
+.reasons-section {
+    min-height: 100vh;
+    padding: 100px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.reasons-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    text-align: center;
+    background: linear-gradient(45deg, var(--gold), var(--light-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 80px;
+}
+
+/* ========================================
+   GRID DE RAZONES
+   ======================================== */
+
+.reasons-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+/* ========================================
+   TARJETAS DE RAZONES
+   ======================================== */
+
+.reason-card {
+    background: rgba(20, 0, 0, 0.8);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
+    cursor: pointer;
+    position: relative;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.reason-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+    border-color: var(--light-red);
+}
+
+/* ========================================
+   NÚMERO DE LA RAZÓN
+   ======================================== */
+
+.reason-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+    }
+}
+
+/* ========================================
+   TEXTO DE LA RAZÓN
+   ======================================== */
+
+.reason-text {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--white);
+    opacity: 0.9;
+}
+
+/* ========================================
+   EFECTO DE BRILLO EN HOVER
+   ======================================== */
+
+.reason-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        rgba(212, 175, 55, 0.1) 50%,
+        transparent 100%
+    );
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.reason-card:hover::before {
+    opacity: 1;
+}
+
+/* ========================================
+   ANIMACIÓN DE APARICIÓN
+   ======================================== */
+
+.reason-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.reason-card:nth-child(1) { animation-delay: 0.1s; }
+.reason-card:nth-child(2) { animation-delay: 0.2s; }
+.reason-card:nth-child(3) { animation-delay: 0.3s; }
+.reason-card:nth-child(4) { animation-delay: 0.4s; }
+.reason-card:nth-child(5) { animation-delay: 0.5s; }
+.reason-card:nth-child(6) { animation-delay: 0.6s; }
+.reason-card:nth-child(7) { animation-delay: 0.7s; }
+.reason-card:nth-child(8) { animation-delay: 0.8s; }
+.reason-card:nth-child(9) { animation-delay: 0.9s; }
+.reason-card:nth-child(10) { animation-delay: 1s; }
+.reason-card:nth-child(11) { animation-delay: 1.1s; }
+.reason-card:nth-child(12) { animation-delay: 1.2s; }
+.reason-card:nth-child(13) { animation-delay: 1.3s; }
+.reason-card:nth-child(14) { animation-delay: 1.4s; }
+.reason-card:nth-child(15) { animation-delay: 1.5s; }
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .reasons-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .reason-card {
+        min-height: 200px;
+        padding: 30px 20px;
+    }
+    
+    .reason-number {
+        font-size: 2.5rem;
+    }
+    
+    .reason-text {
+        font-size: 1.2rem;
+    }
+}
