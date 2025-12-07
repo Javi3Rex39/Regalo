@@ -1,15 +1,15 @@
 // ========================================
-// SISTEMA DE MÚSICA DE FONDO
+// SISTEMA DE MÚSICA DE FONDO - VERSIÓN MÓVIL OPTIMIZADA
 // ========================================
 
 // CONFIGURACIÓN DE LA MÚSICA
-// Cambia esta ruta por la de tu canción
 const MUSIC_PATH = 'audio/cancion.mp3';  // ← AQUÍ PON TU CANCIÓN
-const DEFAULT_VOLUME = 0.3;  // Volumen inicial (0.0 a 1.0)
+const DEFAULT_VOLUME = 0.5;  // Volumen inicial (0.0 a 1.0)
 
 let audioPlayer = null;
 let isPlaying = false;
 let musicButton = null;
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // ========================================
 // CREAR REPRODUCTOR DE AUDIO
@@ -18,7 +18,7 @@ let musicButton = null;
 function initMusicPlayer() {
     // Crear elemento de audio
     audioPlayer = new Audio(MUSIC_PATH);
-    audioPlayer.loop = true;  // Repetir la canción
+    audioPlayer.loop = true;  // Repetir la canción infinitamente
     audioPlayer.volume = DEFAULT_VOLUME;
     
     // Crear botón de control
@@ -28,56 +28,75 @@ function initMusicPlayer() {
 }
 
 // ========================================
-// CREAR BOTÓN DE CONTROL
+// CREAR BOTÓN DE CONTROL SIMPLE
 // ========================================
 
 function createMusicButton() {
     musicButton = document.createElement('button');
     musicButton.className = 'music-button';
     musicButton.innerHTML = '🎵';
-    musicButton.title = 'Reproducir música';
+    musicButton.title = 'Música';
     
-    // Estilos del botón
+    // Estilos del botón - OPTIMIZADO PARA MÓVIL
     musicButton.style.cssText = `
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
+        bottom: ${isMobile ? '25px' : '30px'};
+        right: ${isMobile ? '50%' : '30px'};
+        transform: ${isMobile ? 'translateX(50%)' : 'none'};
+        width: ${isMobile ? '70px' : '60px'};
+        height: ${isMobile ? '70px' : '60px'};
         border-radius: 50%;
         background: linear-gradient(45deg, var(--gold), var(--light-red));
         border: 3px solid var(--gold);
-        font-size: 1.8rem;
+        font-size: ${isMobile ? '2rem' : '1.8rem'};
         cursor: pointer;
         z-index: 10000;
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
         animation: pulse 2s infinite;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     `;
     
-    // Efecto hover
-    musicButton.addEventListener('mouseenter', () => {
-        musicButton.style.transform = 'scale(1.1)';
-        musicButton.style.boxShadow = '0 15px 40px rgba(212, 175, 55, 0.6)';
-    });
+    // Efecto hover solo en desktop
+    if (!isMobile) {
+        musicButton.addEventListener('mouseenter', () => {
+            musicButton.style.transform = 'scale(1.1)';
+            musicButton.style.boxShadow = '0 15px 40px rgba(212, 175, 55, 0.6)';
+        });
+        
+        musicButton.addEventListener('mouseleave', () => {
+            musicButton.style.transform = 'scale(1)';
+            musicButton.style.boxShadow = '0 10px 30px rgba(212, 175, 55, 0.5)';
+        });
+    }
     
-    musicButton.addEventListener('mouseleave', () => {
-        musicButton.style.transform = 'scale(1)';
-        musicButton.style.boxShadow = '0 10px 30px rgba(212, 175, 55, 0.4)';
-    });
-    
-    // Click para reproducir/pausar
-    musicButton.addEventListener('click', toggleMusic);
+    // Efecto al tocar en móvil
+    if (isMobile) {
+        musicButton.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            musicButton.style.transform = 'translateX(50%) scale(0.95)';
+        });
+        
+        musicButton.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            musicButton.style.transform = 'translateX(50%) scale(1)';
+            toggleMusic();
+        });
+    } else {
+        // Click normal en desktop
+        musicButton.addEventListener('click', toggleMusic);
+    }
     
     // Agregar al body
     document.body.appendChild(musicButton);
 }
 
 // ========================================
-// REPRODUCIR/PAUSAR MÚSICA
+// REPRODUCIR/PAUSAR MÚSICA (SIMPLE)
 // ========================================
 
 function toggleMusic() {
@@ -97,10 +116,11 @@ function playMusic() {
         isPlaying = true;
         musicButton.innerHTML = '⏸️';
         musicButton.title = 'Pausar música';
-        musicButton.style.animation = 'rotate360 3s linear infinite';
+        musicButton.style.animation = 'rotate360 4s linear infinite';
         console.log('🎵 Música reproduciendo');
     }).catch(error => {
         console.error('Error al reproducir música:', error);
+        console.log('💡 Tip: La música necesita interacción del usuario para reproducirse');
     });
 }
 
@@ -116,7 +136,7 @@ function pauseMusic() {
 }
 
 // ========================================
-// FUNCIÓN PARA INICIAR MÚSICA (LLAMADA DESDE COUNTDOWN.JS)
+// INICIAR MÚSICA AL DESBLOQUEAR
 // ========================================
 
 function startMusic() {
@@ -127,80 +147,38 @@ function startMusic() {
     // Pequeño delay para mejor experiencia
     setTimeout(() => {
         playMusic();
-    }, 500);
+    }, 800);
 }
 
 // ========================================
-// CONTROL DE VOLUMEN CON RUEDA DEL RATÓN (OPCIONAL)
+// ANIMACIONES
 // ========================================
 
-if (musicButton) {
-    musicButton.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        
-        if (e.deltaY < 0) {
-            // Subir volumen
-            audioPlayer.volume = Math.min(1, audioPlayer.volume + 0.1);
-        } else {
-            // Bajar volumen
-            audioPlayer.volume = Math.max(0, audioPlayer.volume - 0.1);
+// Agregar estilos de animación si no existen
+if (!document.getElementById('music-animations')) {
+    const style = document.createElement('style');
+    style.id = 'music-animations';
+    style.textContent = `
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+            }
+            50% {
+                box-shadow: 0 15px 40px rgba(212, 175, 55, 0.7);
+            }
         }
         
-        // Mostrar feedback visual
-        showVolumeIndicator(Math.round(audioPlayer.volume * 100));
-    });
+        @keyframes rotate360 {
+            from {
+                transform: ${isMobile ? 'translateX(50%) rotate(0deg)' : 'rotate(0deg)'};
+            }
+            to {
+                transform: ${isMobile ? 'translateX(50%) rotate(360deg)' : 'rotate(360deg)'};
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
-
-// ========================================
-// INDICADOR VISUAL DE VOLUMEN
-// ========================================
-
-function showVolumeIndicator(volume) {
-    let indicator = document.getElementById('volume-indicator');
-    
-    if (!indicator) {
-        indicator = document.createElement('div');
-        indicator.id = 'volume-indicator';
-        indicator.style.cssText = `
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: rgba(20, 0, 0, 0.9);
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 10px 20px;
-            color: var(--gold);
-            font-size: 1rem;
-            z-index: 10001;
-            animation: fadeIn 0.3s ease;
-        `;
-        document.body.appendChild(indicator);
-    }
-    
-    indicator.textContent = `🔊 ${volume}%`;
-    indicator.style.display = 'block';
-    
-    // Ocultar después de 2 segundos
-    clearTimeout(indicator.timeout);
-    indicator.timeout = setTimeout(() => {
-        indicator.style.animation = 'fadeOut 0.3s ease';
-        setTimeout(() => {
-            indicator.style.display = 'none';
-            indicator.style.animation = 'fadeIn 0.3s ease';
-        }, 300);
-    }, 2000);
-}
-
-// ========================================
-// INICIALIZAR AL CARGAR LA PÁGINA
-// ========================================
-
-// NO se inicializa automáticamente, se llama desde countdown.js
-// cuando se desbloquea el contenido
-
-// Si quieres que se inicie automáticamente al cargar la página,
-// descomenta esta línea:
-// document.addEventListener('DOMContentLoaded', initMusicPlayer);
 
 // ========================================
 // MANEJO DE ERRORES
@@ -219,28 +197,46 @@ window.addEventListener('error', (e) => {
 });
 
 // ========================================
+// PREVENIR QUE SE PAUSE CON CAMBIO DE PESTAÑA
+// ========================================
+
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // No hacer nada cuando cambia de pestaña
+        // La música sigue sonando
+    }
+});
+
+// ========================================
 // INSTRUCCIONES EN CONSOLA
 // ========================================
 
 console.log(`
 ╔════════════════════════════════════════╗
-║   🎵 SISTEMA DE MÚSICA CONFIGURADO     ║
+║   🎵 SISTEMA DE MÚSICA SIMPLE          ║
 ╚════════════════════════════════════════╝
 
-📝 CÓMO AGREGAR TU CANCIÓN:
+📝 CÓMO FUNCIONA:
 
-1. Sube tu archivo MP3 a la carpeta: audio/
-2. Nómbralo: cancion.mp3
-3. O cambia MUSIC_PATH en este archivo
-4. Descomenta la línea en index.html:
+1. La música se reproduce automáticamente
+   cuando ella toque "Abrir mi regalo"
+   
+2. Loop infinito activado ♾️
+
+3. Control simple:
+   - Un toque = Play/Pause
+   - El volumen del teléfono controla todo
+   
+4. Sin complicaciones, como cualquier sitio web
+
+📁 PARA AGREGAR TU CANCIÓN:
+
+1. Sube tu archivo MP3 a: audio/cancion.mp3
+2. Descomenta en index.html:
    <script src="js/musica.js"></script>
+3. ¡Listo!
 
-🎵 La música se reproducirá automáticamente
-   cuando se desbloquee el contenido.
-
-💡 CONTROLES:
-   - Click: Play/Pause
-   - Rueda del ratón: Ajustar volumen
+🎵 Modo: ${isMobile ? 'Móvil 📱' : 'Desktop 💻'}
 `);
 
-console.log('🎵 Sistema de música listo');
+console.log('🎵 Sistema de música listo y optimizado');
