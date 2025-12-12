@@ -10,18 +10,20 @@
     height: 100%;
     height: 100vh;
     height: 100dvh; /* Para móviles modernos */
-    background: #0a0a0a; /* Fondo sólido negro */
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
-    z-index: 99999; /* Muy alto para estar sobre todo */
+    background: #000000; /* Negro sólido puro */
+    z-index: 999999; /* Extremadamente alto */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 1s ease;
-    overflow: hidden; /* Prevenir scroll dentro del overlay */
+    transition: opacity 1s ease, visibility 1s ease;
+    overflow: hidden;
+    overscroll-behavior: contain; /* Prevenir scroll en iOS */
+    -webkit-overflow-scrolling: none;
+    touch-action: none; /* Bloquear gestos táctiles */
 }
 
-/* Capa adicional para asegurar opacidad total */
+/* Capa adicional para asegurar opacidad total y gradiente */
 .lock-overlay::before {
     content: '';
     position: absolute;
@@ -29,8 +31,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.98);
-    z-index: -1;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+    z-index: 1;
+}
+
+/* Asegurar que el contenido esté sobre el gradiente */
+.countdown-container,
+.unlock-button,
+.lock-message {
+    position: relative;
+    z-index: 2;
 }
 
 .lock-overlay.hidden {

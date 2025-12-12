@@ -7,11 +7,11 @@
 // ========================================
 
 // 📅 FECHA REAL DEL CUMPLEAÑOS: 14 de diciembre de 2025 a las 00:00
-// const birthdayDate = new Date('2025-12-14T00:00:00').getTime();
+const birthdayDate = new Date('2025-12-14T00:00:00').getTime();
 
 // 🧪 MODO DE PRUEBA: Desbloqueo en 1 minuto (para testing)
 // Para activar pruebas rápidas, comenta la línea de arriba y descomenta esta:
-const birthdayDate = new Date(Date.now() + 60000).getTime(); // 1 minuto desde ahora
+// const birthdayDate = new Date(Date.now() + 60000).getTime(); // 1 minuto desde ahora
 
 let isUnlocked = false;
 
@@ -128,6 +128,9 @@ function unlockContent() {
     const overlay = document.getElementById('lockOverlay');
     overlay.classList.add('hidden');
     
+    // Restaurar el scroll del body usando la clase
+    document.body.classList.add('unlocked');
+    
     // Lanzar pétalos al desbloquear
     setTimeout(() => {
         launchPetals();
@@ -164,6 +167,9 @@ function unlockContent() {
 
 // Botón de desbloqueo
 document.getElementById('unlockButton').addEventListener('click', unlockContent);
+
+// El bloqueo del scroll ya está en el HTML con estilos inline
+// No es necesario agregarlo aquí
 
 // Iniciar countdown
 updateCountdown();
@@ -207,4 +213,52 @@ if (birthdayDate > Date.now() + 86400000) { // Si es más de 1 día
 } else {
     console.log('🧪 MODO DE PRUEBA: El contador expirará pronto');
     console.log('💡 Para usar la fecha real, edita countdown.js líneas 7-12');
+}
+
+// ========================================
+// ASEGURAR QUE EL OVERLAY SEA COMPLETAMENTE OPACO
+// ========================================
+
+// Agregar estilos adicionales para el overlay
+if (!document.getElementById('overlay-fix-styles')) {
+    const style = document.createElement('style');
+    style.id = 'overlay-fix-styles';
+    style.textContent = `
+        .lock-overlay {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%) !important;
+            backdrop-filter: blur(10px) !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            z-index: 99999 !important;
+            overflow: hidden !important;
+        }
+        
+        .lock-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: -1;
+        }
+        
+        .lock-overlay.hidden {
+            animation: fadeOut 0.8s ease forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    console.log('🔒 Overlay completamente bloqueado y opaco');
 }
