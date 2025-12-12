@@ -7,11 +7,11 @@
 // ========================================
 
 // 📅 FECHA REAL DEL CUMPLEAÑOS: 14 de diciembre de 2025 a las 00:00
-const birthdayDate = new Date('2025-12-14T00:00:00').getTime();
+// const birthdayDate = new Date('2025-12-14T00:00:00').getTime();
 
 // 🧪 MODO DE PRUEBA: Desbloqueo en 1 minuto (para testing)
 // Para activar pruebas rápidas, comenta la línea de arriba y descomenta esta:
-// const birthdayDate = new Date(Date.now() + 60000).getTime(); // 1 minuto desde ahora
+const birthdayDate = new Date(Date.now() + 60000).getTime(); // 1 minuto desde ahora
 
 let isUnlocked = false;
 
