@@ -4,7 +4,7 @@
 
 // PUEDES EDITAR ESTOS DESEOS FÁCILMENTE
 const deseos = [
-    "Que este nuevo año de vida esté lleno de aventuras increíbles",
+    "Que este nuevo año esté lleno de muchas alegrias",
     "Que todos tus sueños más grandes se hagan realidad",
     "Que la felicidad te acompañe en cada paso que des",
     "Que encuentres éxito en todo lo que te propongas",

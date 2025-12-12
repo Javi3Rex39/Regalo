@@ -2,9 +2,17 @@
 // COUNTDOWN Y SISTEMA DE DESBLOQUEO
 // ========================================
 
-// FECHA DEL CUMPLEAÑOS: 14 de diciembre de 2025 a medianoche
-const birthdayDate = new Date('2025-12-02T23:15:00').getTime();
-//const birthdayDate = new Date('2025-12-14T00:00:00').getTime();
+// ========================================
+// CONFIGURACIÓN DE FECHA
+// ========================================
+
+// 📅 FECHA REAL DEL CUMPLEAÑOS: 14 de diciembre de 2025 a las 00:00
+// const birthdayDate = new Date('2025-12-14T00:00:00').getTime();
+
+// 🧪 MODO DE PRUEBA: Desbloqueo en 1 minuto (para testing)
+// Para activar pruebas rápidas, comenta la línea de arriba y descomenta esta:
+const birthdayDate = new Date(Date.now() + 60000).getTime(); // 1 minuto desde ahora
+
 let isUnlocked = false;
 
 // ========================================
@@ -144,10 +152,9 @@ function unlockContent() {
     }, 2000);
     
     // Reproducir música si está disponible
+    // SIN DELAY - El click del botón cuenta como interacción del usuario
     if (typeof startMusic === 'function') {
-        setTimeout(() => {
-            startMusic();
-        }, 1500);
+        startMusic();
     }
 }
 
@@ -186,5 +193,18 @@ document.querySelectorAll('.countdown-number').forEach(num => {
     num.style.transition = 'transform 0.2s ease';
 });
 
+// ========================================
+// INFORMACIÓN EN CONSOLA
+// ========================================
+
 console.log('🎉 Countdown inicializado correctamente');
-console.log('📅 Fecha objetivo: 14 de diciembre de 2025');
+
+// Mostrar información según el modo
+if (birthdayDate > Date.now() + 86400000) { // Si es más de 1 día
+    const fechaObjetivo = new Date(birthdayDate);
+    console.log('📅 MODO PRODUCCIÓN');
+    console.log('🎂 Fecha objetivo: ' + fechaObjetivo.toLocaleString('es-ES'));
+} else {
+    console.log('🧪 MODO DE PRUEBA: El contador expirará pronto');
+    console.log('💡 Para usar la fecha real, edita countdown.js líneas 7-12');
+}

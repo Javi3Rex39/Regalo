@@ -259,7 +259,7 @@ document.querySelectorAll('.timeline-dot, .reason-number').forEach(el => {
 // MENSAJE EN CONSOLA
 // ========================================
 
-console.log('%c🎉 ¡Felices 15 Años Vale! 🎉', 'font-size: 20px; color: #d4af37; font-weight: bold;');
+console.log('%c🎉 ¡Felices 17 Años Vale! 🎉', 'font-size: 20px; color: #d4af37; font-weight: bold;');
 console.log('%cCon amor, siempre ❤️', 'font-size: 14px; color: #c41e3a; font-style: italic;');
 
 console.log('✨ Sistema de animaciones inicializado');

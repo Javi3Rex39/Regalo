@@ -1,23 +1,25 @@
 // ========================================
-// LAS 15 RAZONES POR LAS QUE TE AMO
+// LAS 17 RAZONES POR LAS QUE TE AMO
 // ========================================
 
 // PUEDES EDITAR ESTAS RAZONES FÁCILMENTE
 const razones = [
     "Tu sonrisa ilumina cada uno de mis días",
-    "Tu forma de ser auténtica y genuina",
+    "Tu forma de ser: Unica, Tierna y Especial",
     "Como me haces reír incluso en momentos difíciles",
-    "Tu corazón noble y generoso",
-    "La forma en que me entiendes sin necesidad de palabras",
+    "Tu corazón generoso y lleno de cariño",
+    "La forma en que me entiendes siendo mi refugio",
     "Tu belleza tanto interior como exterior",
     "Como me apoyas en todo lo que hago",
     "Tu dulzura y ternura conmigo",
-    "Los momentos especiales que creamos juntos",
+    "Los momentos y sueños especiales que conseguiremos juntos",
     "Como haces que cada día sea mejor",
     "Tu inteligencia y forma de ver el mundo",
     "La paz que siento cuando estoy contigo",
     "Como me inspiras a ser mejor persona",
     "Tus detalles y gestos de amor",
+    "Tu fuerza y valentía ante cualquier situación",
+    "La forma en que me haces sentir especial",
     "Porque eres tú, simplemente tú"
 ];
 
@@ -54,10 +56,10 @@ function cargarRazones() {
         
         // Agregar evento de click para efecto especial
         card.addEventListener('click', () => {
-            card.style.animation = 'none';
+            card.classList.add('clicked');
             setTimeout(() => {
-                card.style.animation = 'scaleUp 0.4s ease';
-            }, 10);
+                card.classList.remove('clicked');
+            }, 400);
         });
         
         reasonsGrid.appendChild(card);
@@ -70,7 +72,7 @@ function cargarRazones() {
 // ANIMACIÓN DE APARICIÓN AL HACER SCROLL
 // ========================================
 
-const razonesobserver = new IntersectionObserver((entries) => {
+const razonesObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
             setTimeout(() => {
